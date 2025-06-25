@@ -12,7 +12,7 @@ DEFAULT_REQUEST_HEADERS = {
     'Accept-Language': 'en',
 }
 
-logging_level = 'INFO'  # Set logging level to INFO
+LOG_LEVEL= 'INFO'  # Set logging level to INFO
 
 # Throttle to prevent system overload
 CONCURRENT_REQUESTS = 1
