@@ -12,22 +12,25 @@ DEFAULT_REQUEST_HEADERS = {
     'Accept-Language': 'en',
 }
 
-# Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+logging_level = 'INFO'  # Set logging level to INFO
 
-# Configure maximum concurrent requests performed by Scrapy (default: 16)
+# Throttle to prevent system overload
 CONCURRENT_REQUESTS = 1
+DOWNLOAD_DELAY = 3  # seconds
 
-DOWNLOAD_DELAY = 3
+# Enable job directory to resume crawls after interruption
+#JOBDIR = 'crawls/product_detail_resume'
 
-FEED_EXPORT_ENCODING = "utf-8"
-LOG_LEVEL = 'INFO'
-
-#enable jsonlines output
+# Enable both JSON and CSV output with file paths
 FEEDS = {
-    'output/carbon38_urls.jl': {
-        'format': 'jsonlines',
+    'output/carbon38_data.json': {
+        'format': 'json',
         'encoding': 'utf8',
         'overwrite': True,
-    }
+    },
+    'output/carbon38_data.csv': {
+        'format': 'csv',
+        'encoding': 'utf8',
+        'overwrite': True,
+    },
 }
