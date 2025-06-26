@@ -38,9 +38,9 @@ class ProductDetailSpider(scrapy.Spider):
                         self.logger.info(f"🔗 Crawling product: {url}")
                         yield scrapy.Request(url=url, callback=self.parse_product)
         except FileNotFoundError:
-            self.logger.error(f"❌ File '{file_path}' not found. Run 'product_url_spider' first.")
+            self.logger.error(f" File '{file_path}' not found. Run 'product_url_spider' first.")
         except Exception as e:
-            self.logger.error(f"❌ Error reading '{file_path}': {e}", exc_info=True)
+            self.logger.error(f" Error reading '{file_path}': {e}", exc_info=True)
 
     def add_https(self, url: str) -> str:
         """
@@ -117,7 +117,7 @@ class ProductDetailSpider(scrapy.Spider):
             yield from self.fetch_review_data(response, product)
 
         except Exception as e:
-            self.logger.error(f"❌ Error parsing product page {response.url}: {e}", exc_info=True)
+            self.logger.error(f" Error parsing product page {response.url}: {e}", exc_info=True)
 
     def fetch_review_data(self, response: Response, product: dict):
         """
@@ -148,7 +148,7 @@ class ProductDetailSpider(scrapy.Spider):
                 dont_filter=True
             )
         else:
-            self.logger.warning(f"⚠️ No Yotpo product ID found for: {response.url}")
+            self.logger.warning(f"No Yotpo product ID found for: {response.url}")
             product["reviews"] = "0 Reviews"
             yield product
 
@@ -168,7 +168,7 @@ class ProductDetailSpider(scrapy.Spider):
             review_count = data.get("pagination", {}).get("total", 0)
             item["reviews"] = f"{review_count} Reviews"
         except Exception as e:
-            self.logger.warning(f"⚠️ Failed to parse Yotpo response: {e}")
+            self.logger.warning(f"Failed to parse Yotpo response: {e}")
             item["reviews"] = "0 Reviews"
 
         yield item
